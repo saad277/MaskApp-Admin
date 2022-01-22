@@ -12,10 +12,6 @@ export const login = (payload) => (dispatch) => {
       return dispatch(getMe(token));
     })
     .catch((err) => {
-      Snackbar.show({
-        text: getError(err),
-        duration: Snackbar.LENGTH_SHORT,
-      });
       return Promise.reject(err);
     });
 };
@@ -25,7 +21,7 @@ export const getMe = (token) => (dispatch) => {
     .get("/user/me", getConfig(token))
     .then((res) => {
       dispatch({
-        type: AuthActionType.ME_SUCCESS,
+        type: ME_SUCCESS,
         payload: { Token: token, ...res.data },
       });
 
