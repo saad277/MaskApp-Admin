@@ -5,7 +5,7 @@ export const LOG_OUT = "LOG_OUT";
 
 export const login = (payload) => (dispatch) => {
   return httpRequest
-    .post("/login", payload, postConfig)
+    .post("/adminLogin", payload, postConfig)
     .then(async (res) => {
       let token = res.data.Token;
       await localStorage.setItem("token", token);

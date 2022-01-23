@@ -16,7 +16,8 @@ Coded by www.creative-tim.com
 import { useState, useEffect, useMemo } from "react";
 
 // react-router components
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { connect } from "react-redux";
 
 // @mui material components
 import { ThemeProvider } from "@mui/material/styles";
@@ -47,16 +48,19 @@ import createCache from "@emotion/cache";
 
 // Material Dashboard 2 React routes
 import routes from "routes";
-import SignIn from "layouts/authentication/sign-in";
 
 // Material Dashboard 2 React contexts
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
+
+import { getMe } from "./store/actions/authActions";
 
 // Images
 import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
 
-function App() {
+function App(props) {
+  const { getMe } = props;
+
   const [controller, dispatch] = useMaterialUIController();
   const {
     miniSidenav,
@@ -71,6 +75,7 @@ function App() {
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   // Cache for the rtl
   // useMemo(() => {
@@ -105,6 +110,16 @@ function App() {
   useEffect(() => {
     document.body.setAttribute("dir", direction);
   }, [direction]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      getMe(token);
+    } else if (!token & (pathname !== "/authentication/sign-in")) {
+      navigate("/authentication/sign-in");
+    }
+  }, []);
 
   // Setting page scroll to 0 when changing the route
   useEffect(() => {
@@ -202,4 +217,8 @@ function App() {
   );
 }
 
-export default App;
+const mapDispatchToProps = {
+  getMe,
+};
+
+export default connect(null, mapDispatchToProps)(App);

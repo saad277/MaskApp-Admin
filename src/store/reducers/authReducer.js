@@ -1,13 +1,13 @@
-import { ME_SUCCESS, LOG_OUT } from "../actions";
+import { ME_SUCCESS, LOG_OUT } from "../actions/authActions";
 
 const initialState = {
   user: null,
   isAuthenticated: false,
 };
 
-export default (state = initialState, action) => {
+const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ME_SUCCESS:
+    case "ME_SUCCESS":
       return {
         ...state,
         user: {
@@ -16,7 +16,7 @@ export default (state = initialState, action) => {
         isAuthenticated: true,
       };
 
-    case LOG_OUT:
+    case "LOG_OUT":
       return {
         ...state,
         user: null,
@@ -27,3 +27,5 @@ export default (state = initialState, action) => {
       return state;
   }
 };
+
+export default AuthReducer;
