@@ -203,6 +203,7 @@ function DataTable({
         <TableBody {...getTableBodyProps()}>
           {page.map((row, key) => {
             prepareRow(row);
+
             return (
               <TableRow {...row.getRowProps()}>
                 {row.cells.map((cell) => (
