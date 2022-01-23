@@ -39,4 +39,6 @@ export const logout = () => async (dispatch) => {
   dispatch({
     type: LOG_OUT,
   });
+
+  return Promise.resolve(true);
 };
