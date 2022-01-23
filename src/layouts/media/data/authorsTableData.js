@@ -42,8 +42,13 @@ export default function data(listingData) {
     </MDBox>
   );
 
-  const formatted = listingData.map((item) => {
+  const formatted = listingData.map((item, index) => {
     return {
+      no: (
+        <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+          {index + 1}
+        </MDTypography>
+      ),
       author: (
         <Author
           image={"data:image/png;base64," + item.Img}
@@ -72,7 +77,8 @@ export default function data(listingData) {
 
   return {
     columns: [
-      { Header: "author", accessor: "author", width: "45%", align: "left" },
+      { Header: "no", accessor: "no", width: "4%", align: "left" },
+      { Header: "author", accessor: "author", width: "35%", align: "left" },
       // { Header: "function", accessor: "function", align: "left" },
       { Header: "status", accessor: "status", align: "center" },
       { Header: "date", accessor: "employed", align: "center" },
