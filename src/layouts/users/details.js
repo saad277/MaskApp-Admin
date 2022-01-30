@@ -6,6 +6,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { useParams } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import moment from "moment";
+import GoogleMapReact from "google-map-react";
 
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
@@ -121,6 +122,22 @@ function Details(props) {
                 </Menu>
               </MDBox>
             </Grid>
+          </Grid>
+
+          <Grid item xs={12} lg={12} style={{ marginTop: 30 }}>
+            <MDBox display="flex" alignItems="center" lineHeight={1}>
+              Location :
+            </MDBox>
+            <div style={{ width: "100%", height: 500, marginTop: 20 }}>
+              <GoogleMapReact
+                bootstrapURLKeys={{ key: "AIzaSyBchnNWv36OEeOocuLCfRZOn7T8D3rAAQ8" }}
+                defaultCenter={{
+                  lat: 37.42216,
+                  lng: -122.08427,
+                }}
+                defaultZoom={9}
+              ></GoogleMapReact>
+            </div>
           </Grid>
         </MDBox>
       )}

@@ -30,6 +30,7 @@
     "axios": "^0.25.0",
     "chart.js": "3.4.1",
     "chroma-js": "2.1.2",
+    "google-map-react": "^2.1.10",
     "moment": "^2.29.1",
     "prop-types": "15.7.2",
     "react": "17.0.2",
