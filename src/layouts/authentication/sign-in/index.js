@@ -33,8 +33,6 @@ import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 function Basic(props) {
   const { login, isAuthenticated } = props;
 
-  console.log(props);
-
   const [rememberMe, setRememberMe] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

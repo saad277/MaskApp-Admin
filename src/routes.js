@@ -39,6 +39,7 @@ Coded by www.creative-tim.com
 import Dashboard from "layouts/dashboard";
 import Users from "layouts/users";
 import Media from "layouts/media";
+import Details from "layouts/users/details";
 // import Billing from "layouts/billing";
 // import RTL from "layouts/rtl";
 // import Notifications from "layouts/notifications";
@@ -73,6 +74,14 @@ const routes = [
     icon: <Icon fontSize="small">table_view</Icon>,
     route: "/users",
     component: <Users />,
+  },
+  {
+    type: "collapse",
+    // name: "Details",
+    key: "details",
+    route: "/details/:id",
+    component: <Details />,
+    exclude: true,
   },
   // {
   //   type: "collapse",

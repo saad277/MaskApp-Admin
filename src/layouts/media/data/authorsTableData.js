@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
 // Soft UI Dashboard React components
 import MDBox from "components/MDBox";
@@ -18,8 +19,8 @@ import team2 from "assets/images/team-2.jpg";
 import team3 from "assets/images/team-3.jpg";
 import team4 from "assets/images/team-4.jpg";
 
-export default function data(listingData) {
-  console.log("listing", listingData);
+export default function Data(listingData) {
+  const navigate = useNavigate();
 
   const Author = ({ image, name, email }) => (
     <MDBox display="flex" alignItems="center" lineHeight={1}>
@@ -68,7 +69,14 @@ export default function data(listingData) {
         </MDTypography>
       ),
       action: (
-        <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
+        <MDTypography
+          component="a"
+          href="#"
+          variant="caption"
+          color="text"
+          fontWeight="medium"
+          onClick={() => navigate(`/details/${item.Id}`)}
+        >
           Details
         </MDTypography>
       ),

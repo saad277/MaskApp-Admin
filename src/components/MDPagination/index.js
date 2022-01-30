@@ -29,7 +29,7 @@ const Context = createContext();
 
 const MDPagination = forwardRef(
   ({ item, variant, color, size, active, children, ...rest }, ref) => {
-    const context = item ? useContext(Context) : null;
+    const context = useContext(Context);
     const paginationSize = context ? context.size : null;
 
     return (
