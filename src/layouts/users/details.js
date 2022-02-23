@@ -18,10 +18,10 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 
-import { getMediaDetails } from "../../store/actions";
+import { getMediaDetails, statusUpdate } from "../../store/actions";
 
 function Details(props) {
-  const { getMediaDetails } = props;
+  const { getMediaDetails, statusUpdate } = props;
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [media, setMedia] = React.useState(null);
@@ -37,8 +37,28 @@ function Details(props) {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+  const handleClose = (val) => {
+    let payload = { UserId: media.UserId, Status: val };
+
+    statusUpdate(id, payload).then(() => {
+      let temp = { ...media };
+
+      temp.Status = val;
+
+      setMedia(temp);
+    });
+
     setAnchorEl(null);
+  };
+
+  const getStatus = (status) => {
+    if (status == 1) {
+      return "Low";
+    } else if (status == 2) {
+      return "Medium";
+    } else {
+      return "High";
+    }
   };
 
   return (
@@ -102,7 +122,7 @@ function Details(props) {
                 Status :{" "}
                 <MDBadge
                   onClick={handleClick}
-                  badgeContent={!media.Status && "None"}
+                  badgeContent={media.Status ? getStatus(media.Status) : !media.Status && "None"}
                   color="success"
                   variant="gradient"
                   size="sm"
@@ -116,9 +136,9 @@ function Details(props) {
                     "aria-labelledby": "basic-button",
                   }}
                 >
-                  <MenuItem onClick={handleClose}>High</MenuItem>
-                  <MenuItem onClick={handleClose}>Medium</MenuItem>
-                  <MenuItem onClick={handleClose}>Low</MenuItem>
+                  <MenuItem onClick={() => handleClose(3)}>High</MenuItem>
+                  <MenuItem onClick={() => handleClose(2)}>Medium</MenuItem>
+                  <MenuItem onClick={() => handleClose(1)}>Low</MenuItem>
                 </Menu>
               </MDBox>
             </Grid>
@@ -149,6 +169,7 @@ function Details(props) {
 
 const mapDispatchToProps = {
   getMediaDetails,
+  statusUpdate,
 };
 
 export default connect(null, mapDispatchToProps)(Details);

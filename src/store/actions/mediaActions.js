@@ -25,3 +25,16 @@ export const getMediaDetails = (id) => (dispatch) => {
       return Promise.reject(err);
     });
 };
+
+export const statusUpdate = (id, payload) => (dispatch) => {
+  const token = localStorage.getItem("token");
+
+  return httpRequest
+    .post(`media/status/${id}`, payload, getConfig(token))
+    .then((res) => {
+      return Promise.resolve(res.data);
+    })
+    .catch((err) => {
+      return Promise.reject(err);
+    });
+};
