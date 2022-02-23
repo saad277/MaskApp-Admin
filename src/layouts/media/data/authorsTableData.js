@@ -43,6 +43,20 @@ export default function Data(listingData) {
     </MDBox>
   );
 
+  const getStatus = (val) => {
+    if (!val) {
+      return "None";
+    }
+
+    if (val === 1) {
+      return "Low";
+    } else if (val == 2) {
+      return "Medium";
+    } else {
+      return "High";
+    }
+  };
+
   const formatted = listingData.map((item, index) => {
     return {
       no: (
@@ -60,7 +74,12 @@ export default function Data(listingData) {
       function: <Job title="Manager" description="Organization" />,
       status: (
         <MDBox ml={-1}>
-          <MDBadge badgeContent="safe" color="success" variant="gradient" size="sm" />
+          <MDBadge
+            badgeContent={getStatus(item.Status)}
+            color={item.Status == 3 ? "danger" : "success"}
+            variant="gradient"
+            size="sm"
+          />
         </MDBox>
       ),
       employed: (
