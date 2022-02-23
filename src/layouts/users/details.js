@@ -40,12 +40,38 @@ function Details(props) {
   const handleClose = (val) => {
     let payload = { UserId: media.UserId, Status: val };
 
-    statusUpdate(id, payload).then(() => {
+    statusUpdate(id, payload).then((res) => {
       let temp = { ...media };
 
       temp.Status = val;
 
       setMedia(temp);
+
+      fetch("https://fcm.googleapis.com/fcm/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:
+            "key=AAAAsFijHTk:APA91bHgf77eqC9bQ2B0lbrEjArRa9PF0x5eN-koTE1VQ3witw2Kn9UxZPaILITIBnZP1DSe2RwO7-HFWNGBNVWcXINqEout1XYhqyJRZa3Y37C7qpRED-RDEKXIlpnhr2pH8xxJAx7J",
+        },
+        body: JSON.stringify({
+          to: res.token,
+          notification: {
+            body: "Message from Mask App",
+            title: "Alert Area is unsafe !!!!",
+          },
+          data: {
+            body: "Notification Body",
+            title: "Notification Title",
+            color: "red",
+            icon: "ic_announce",
+          },
+        }),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+        });
     });
 
     setAnchorEl(null);
