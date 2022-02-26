@@ -105,7 +105,7 @@ export default function Data(listingData) {
   return {
     columns: [
       { Header: "no", accessor: "no", width: "4%", align: "left" },
-      { Header: "author", accessor: "author", width: "35%", align: "left" },
+      { Header: "user", accessor: "author", width: "35%", align: "left" },
       // { Header: "function", accessor: "function", align: "left" },
       { Header: "status", accessor: "status", align: "center" },
       { Header: "date", accessor: "employed", align: "center" },

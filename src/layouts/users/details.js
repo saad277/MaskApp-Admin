@@ -25,12 +25,23 @@ function Details(props) {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [media, setMedia] = React.useState(null);
+  const [address, setAddress] = React.useState("-");
   const open = Boolean(anchorEl);
   const { id } = useParams();
 
   React.useEffect(() => {
     getMediaDetails(Number(id)).then((res) => {
       setMedia(res);
+
+      if (res?.Location?.latitude && res?.Location?.longitude) {
+        fetch(
+          `http://api.positionstack.com/v1/reverse?access_key=b060536a5abca8391d7dbb68ac74ace8&query=${res?.Location?.latitude},${res?.Location?.longitude}`
+        )
+          .then((res) => res.json())
+          .then((res) => {
+            setAddress(res.data[0].label);
+          });
+      }
     });
   }, []);
 
@@ -144,7 +155,7 @@ function Details(props) {
 
             <Grid item xs={12} lg={12}>
               <MDBox display="flex" alignItems="center" lineHeight={1}>
-                With Mask Ratio :
+                With Mask Hazard Ratio :
                 <MDTypography
                   variant="caption"
                   style={{ marginLeft: 20, fontSize: 20, fontWight: 500 }}
@@ -153,7 +164,7 @@ function Details(props) {
                 </MDTypography>
               </MDBox>
               <MDBox display="flex" alignItems="center" lineHeight={1}>
-                Without Mask Ratio :
+                Without Mask Hazard Ratio :
                 <MDTypography
                   variant="caption"
                   style={{ marginLeft: 20, fontSize: 20, fontWight: 500 }}
@@ -188,6 +199,18 @@ function Details(props) {
                 </Menu>
               </MDBox>
             </Grid>
+          </Grid>
+
+          <Grid item xs={12} lg={12}>
+            <MDBox display="flex" alignItems="center" lineHeight={1}>
+              Address :
+              <MDTypography
+                variant="caption"
+                style={{ marginLeft: 20, fontSize: 20, fontWight: 500 }}
+              >
+                {address || "-"}
+              </MDTypography>
+            </MDBox>
           </Grid>
 
           <Grid item xs={12} lg={12} style={{ marginTop: 30 }}>
