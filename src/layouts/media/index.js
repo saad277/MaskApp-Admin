@@ -38,7 +38,7 @@ function Tables(props) {
   const [state, setState] = useState([
     {
       startDate: new Date(),
-      endDate: addDays(new Date(), 7),
+      endDate: new Date(),
       key: "selection",
     },
   ]);
@@ -71,16 +71,18 @@ function Tables(props) {
           event
         </Icon>
         {showCalendar && (
-          <OutsideClickHandler onOutsideClick={() => setShowCalendar(false)}>
-            <DateRangePicker
-              onChange={handleDateSelect}
-              showSelectionPreview={true}
-              moveRangeOnFirstSelection={false}
-              ranges={state}
-              direction="horizontal"
-              showDateDisplay={false}
-            />
-          </OutsideClickHandler>
+          <div class="calendar">
+            <OutsideClickHandler onOutsideClick={() => setShowCalendar(false)}>
+              <DateRangePicker
+                onChange={handleDateSelect}
+                showSelectionPreview={true}
+                moveRangeOnFirstSelection={false}
+                ranges={state}
+                direction="horizontal"
+                showDateDisplay={false}
+              />
+            </OutsideClickHandler>
+          </div>
         )}
       </div>
 
