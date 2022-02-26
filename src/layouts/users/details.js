@@ -100,6 +100,7 @@ function Details(props) {
                   size="lg"
                   style={{ width: 330, height: 250, borderRadius: 0 }}
                 />
+
                 {/* <MDTypography
                   variant="caption"
                   style={{ marginLeft: 20, fontSize: 20, fontWight: 500 }}
@@ -116,7 +117,7 @@ function Details(props) {
                   variant="caption"
                   style={{ marginLeft: 20, fontSize: 20, fontWight: 500 }}
                 >
-                  {moment(media.CreatedAT).format("LL")}
+                  {moment(media.CreatedAt).format("LL")}
                 </MDTypography>
               </MDBox>
             </Grid>

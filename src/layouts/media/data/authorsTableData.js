@@ -84,7 +84,7 @@ export default function Data(listingData) {
       ),
       employed: (
         <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-          {moment(item.CreatedAt).format("YY-MM-DDDD")}
+          {moment(item.CreatedAt).format("LL")}
         </MDTypography>
       ),
       action: (
