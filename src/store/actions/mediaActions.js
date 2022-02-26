@@ -38,3 +38,16 @@ export const statusUpdate = (id, payload) => (dispatch) => {
       return Promise.reject(err);
     });
 };
+
+export const getMediaInRange = (payload) => (dispatch) => {
+  const token = localStorage.getItem("token");
+
+  return httpRequest
+    .post(`media/range`, payload, getConfig(token))
+    .then((res) => {
+      return Promise.resolve(res.data);
+    })
+    .catch((err) => {
+      return Promise.reject(err);
+    });
+};

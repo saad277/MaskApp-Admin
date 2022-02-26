@@ -1,9 +1,17 @@
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { DateRangePicker } from "react-date-range";
+import { addDays } from "date-fns";
+import OutsideClickHandler from "react-outside-click-handler";
+
+import "react-date-range/dist/styles.css"; // main style file
+import "react-date-range/dist/theme/default.css"; // theme css file
+import "./calendar.css";
 
 // @mui material components
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
+import Icon from "@mui/material/Icon";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -18,13 +26,22 @@ import DataTable from "examples/Tables/DataTable";
 // Data
 import authorsTableData from "layouts/media/data/authorsTableData";
 
-import { getMediaListing } from "../../store/actions";
+import { getMediaListing, getMediaInRange } from "../../store/actions";
+import moment from "moment";
 
 function Tables(props) {
-  const { getMediaListing } = props;
+  const { getMediaListing, getMediaInRange } = props;
 
   const [data, setData] = useState([]);
+  const [showCalendar, setShowCalendar] = useState(false);
   const { columns, rows } = authorsTableData(data);
+  const [state, setState] = useState([
+    {
+      startDate: new Date(),
+      endDate: addDays(new Date(), 7),
+      key: "selection",
+    },
+  ]);
 
   useEffect(() => {
     getMediaListing().then((res) => {
@@ -32,9 +49,41 @@ function Tables(props) {
     });
   }, []);
 
+  const handleDateSelect = (item) => {
+    const { selection } = item;
+    setState([selection]);
+
+    let payload = {
+      StartDate: moment(selection.startDate).format("YYYY-MM-DD"),
+      EndDate: moment(selection.endDate).format("YYYY-MM-DD"),
+    };
+
+    getMediaInRange(payload).then((res) => {
+      setData(res.Data);
+    });
+  };
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
+      <div style={{ position: "relative" }}>
+        <Icon style={{ marginLeft: 16 }} onClick={() => setShowCalendar(!showCalendar)}>
+          event
+        </Icon>
+        {showCalendar && (
+          <OutsideClickHandler onOutsideClick={() => setShowCalendar(false)}>
+            <DateRangePicker
+              onChange={handleDateSelect}
+              showSelectionPreview={true}
+              moveRangeOnFirstSelection={false}
+              ranges={state}
+              direction="horizontal"
+              showDateDisplay={false}
+            />
+          </OutsideClickHandler>
+        )}
+      </div>
+
       <MDBox pt={6} pb={3}>
         <Grid container spacing={6}>
           <Grid item xs={12}>
@@ -73,6 +122,7 @@ function Tables(props) {
 
 const mapDispatchToProps = {
   getMediaListing,
+  getMediaInRange,
 };
 
 export default connect(null, mapDispatchToProps)(Tables);

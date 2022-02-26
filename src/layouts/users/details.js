@@ -131,8 +131,6 @@ function Details(props) {
                   {media.WithMask}
                 </MDTypography>
               </MDBox>
-            </Grid>
-            <Grid item xs={12} lg={12}>
               <MDBox display="flex" alignItems="center" lineHeight={1}>
                 Without Mask :
                 <MDTypography
@@ -140,6 +138,27 @@ function Details(props) {
                   style={{ marginLeft: 20, fontSize: 20, fontWight: 500 }}
                 >
                   {media.WithoutMask}
+                </MDTypography>
+              </MDBox>
+            </Grid>
+
+            <Grid item xs={12} lg={12}>
+              <MDBox display="flex" alignItems="center" lineHeight={1}>
+                With Mask Ratio :
+                <MDTypography
+                  variant="caption"
+                  style={{ marginLeft: 20, fontSize: 20, fontWight: 500 }}
+                >
+                  {(media.WithMask / media.WithMask + media.WithoutMask) * 100}%
+                </MDTypography>
+              </MDBox>
+              <MDBox display="flex" alignItems="center" lineHeight={1}>
+                Without Mask Ratio :
+                <MDTypography
+                  variant="caption"
+                  style={{ marginLeft: 20, fontSize: 20, fontWight: 500 }}
+                >
+                  {(media.WithoutMask / media.WithMask + media.WithoutMask) * 100}%
                 </MDTypography>
               </MDBox>
             </Grid>
