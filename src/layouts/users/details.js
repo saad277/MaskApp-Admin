@@ -178,7 +178,7 @@ function Details(props) {
               <MDBox display="flex" alignItems="center" lineHeight={1}>
                 Status :{" "}
                 <MDBadge
-                  onClick={handleClick}
+                  //onClick={handleClick}
                   badgeContent={media.Status ? getStatus(media.Status) : !media.Status && "None"}
                   color="success"
                   variant="gradient"
